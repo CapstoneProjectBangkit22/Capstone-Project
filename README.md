@@ -15,8 +15,4 @@ Capstone Project Bangkit 2022
 <h3>Create google cloud run to deploy APIs for application needs: </h3> 
 •	Region : asia-southeast2</br></br>
 
-HOW TO RUN
-- install docker dan docker compose: https://docs.docker.com/desktop/windows/install/
-- buka command line
-- jalankan command ini: `docker-compose up --build`
-- tunggu sampe server jalan
+
