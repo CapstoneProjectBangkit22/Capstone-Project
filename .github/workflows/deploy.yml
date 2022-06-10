@@ -1,0 +1,40 @@
+name: main
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: asia.gcr.io/${{ secrets.GCP_PROJECT_ID}}/api-ta
+    steps:
+      - uses: actions/checkout@v2
+      
+      - uses: 'google-github-actions/auth@v0'
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+      
+      - name: Configure Docker
+        run: gcloud auth configure-docker --quiet
+        
+      - name: Build Image
+        run: docker build -t $IMAGE_NAME .
+      
+      - name: Push to GCR
+        run: docker push $IMAGE_NAME
+
+      - name: deploy to cloud run
+        run: |
+          gcloud run deploy api-ta \
+          --project ${{ secrets.GCP_PROJECT_ID }} \
+          --image $IMAGE_NAME \
+          --region asia-southeast2 \
+          --platform managed \
+          --allow-unauthenticated \
+          --set-env-vars="DB_URL=${{ secrets.DB_URL }}" \
+          --set-env-vars="ML_API_HOST=${{ secrets.ML_API_HOST }}"
