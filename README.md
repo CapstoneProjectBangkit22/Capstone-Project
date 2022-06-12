@@ -1,10 +1,11 @@
 # Capstone-Project
-Capstone Project Bangkit 2022
+Machine Learning Capstone Project Bangkit 2022
 
 Data used:
 1. data.csv
 2. new_kamusalay.csv
 3. stopword.csv
+
 
 sentiment text analysis using NLP :
 1. Finding dataset
@@ -17,6 +18,7 @@ sentiment text analysis using NLP :
 8. Prediction
 9. Save model
 10. Testing model 
+
 
 How to use :
 1. Download dataset
